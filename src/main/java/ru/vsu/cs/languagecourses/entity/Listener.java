@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "listeners")
-public class Listeners {
+public class Listener {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,5 +28,5 @@ public class Listeners {
     @NotNull
     @OneToMany
     @JoinColumn(name = "id")
-    private List<Course_listeners> course_listeners;
+    private List<Course_listener> course_listener;
 }

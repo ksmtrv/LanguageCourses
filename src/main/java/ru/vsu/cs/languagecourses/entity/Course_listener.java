@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "course_listeners")
-public class Course_listeners {
+public class Course_listener {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,5 +24,5 @@ public class Course_listeners {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "listeners_id")
-    private Listeners listeners;
+    private Listener listener;
 }
