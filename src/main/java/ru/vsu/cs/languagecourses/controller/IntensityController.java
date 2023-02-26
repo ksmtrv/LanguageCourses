@@ -29,4 +29,9 @@ public class IntensityController {
     public void updateIntensity(@PathVariable Long id, @RequestBody Intensity intensity) {
         service.updateIntensity(id, intensity);
     }
+
+    @DeleteMapping("/intensity/delete/{id}")
+    public void deleteIntensity(@PathVariable Long id) {
+        service.deleteIntensity(id);
+    }
 }

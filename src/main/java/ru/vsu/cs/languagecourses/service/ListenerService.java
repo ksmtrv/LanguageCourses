@@ -33,6 +33,10 @@ public class ListenerService {
                 .filter(val->val.getId().equals(id)).toList().get(0);
     }
 
+    public void deleteListener(Long id) {
+        repository.delete(findById(id));
+    }
+
     public void updateListener(Long id, Listener listener) {
         Listener oldListener = findById(id);
         oldListener.setName(listener.getName());

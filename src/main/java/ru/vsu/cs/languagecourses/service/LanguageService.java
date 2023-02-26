@@ -3,7 +3,6 @@ package ru.vsu.cs.languagecourses.service;
 import org.springframework.stereotype.Service;
 import ru.vsu.cs.languagecourses.dto.LanguageDto;
 import ru.vsu.cs.languagecourses.entity.Language;
-import ru.vsu.cs.languagecourses.entity.Users;
 import ru.vsu.cs.languagecourses.mapper.LanguageMapper;
 import ru.vsu.cs.languagecourses.repository.LanguageRepository;
 
@@ -32,6 +31,10 @@ public class LanguageService {
     private Language findById(Long id) {
         return repository.findAll().stream()
                 .filter(val->val.getId().equals(id)).toList().get(0);
+    }
+
+    public void deleteLanguage(Long id) {
+        repository.delete(findById(id));
     }
 
     public void updateLanguage(Long id, Language language) {

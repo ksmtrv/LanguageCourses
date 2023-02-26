@@ -2,9 +2,7 @@ package ru.vsu.cs.languagecourses.controller;
 
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.languagecourses.dto.CourseDto;
-import ru.vsu.cs.languagecourses.dto.UsersDto;
 import ru.vsu.cs.languagecourses.entity.Course;
-import ru.vsu.cs.languagecourses.entity.Users;
 import ru.vsu.cs.languagecourses.service.CourseService;
 
 import java.util.List;
@@ -31,5 +29,10 @@ public class CourseController {
     @PutMapping("/course/{id}")
     public void updateCourse(@PathVariable Long id, @RequestBody Course course) {
         service.updateCourse(id, course);
+    }
+
+    @DeleteMapping("/course/delete/{id}")
+    public void deleteCourse(@PathVariable Long id) {
+        service.deleteCourse(id);
     }
 }

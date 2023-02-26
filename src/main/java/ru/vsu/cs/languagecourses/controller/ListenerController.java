@@ -31,4 +31,9 @@ public class ListenerController {
     public void updateListener(@PathVariable Long id, @RequestBody Listener listener) {
         service.updateListener(id, listener);
     }
+
+    @DeleteMapping("/listener/delete/{id}")
+    public void deleteListener(@PathVariable Long id) {
+        service.deleteListener(id);
+    }
 }

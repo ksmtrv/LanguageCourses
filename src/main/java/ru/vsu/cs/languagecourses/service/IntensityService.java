@@ -33,6 +33,10 @@ public class IntensityService {
                 .filter(val->val.getId().equals(id)).toList().get(0);
     }
 
+    public void deleteIntensity(Long id) {
+        repository.delete(findById(id));
+    }
+
     public void updateIntensity(Long id, Intensity intensity) {
         Intensity oldIntensity = findById(id);
         oldIntensity.setName(intensity.getName());

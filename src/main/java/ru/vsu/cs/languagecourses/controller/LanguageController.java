@@ -29,4 +29,9 @@ public class LanguageController {
     public void updateLanguage(@PathVariable Long id, @RequestBody Language language) {
         service.updateLanguage(id, language);
     }
+
+    @DeleteMapping("/language/delete/{id}")
+    public void deleteLanguage(@PathVariable Long id) {
+        service.deleteLanguage(id);
+    }
 }

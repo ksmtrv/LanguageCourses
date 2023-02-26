@@ -29,4 +29,9 @@ public class LevelController {
     public void updateLevel(@PathVariable Long id, @RequestBody Level level) {
         service.updateLevel(id, level);
     }
+
+    @DeleteMapping("/level/delete/{id}")
+    public void deleteLevel(@PathVariable Long id) {
+        service.deleteLevel(id);
+    }
 }
