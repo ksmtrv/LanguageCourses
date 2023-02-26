@@ -35,9 +35,9 @@ public class LevelService {
                 .filter(val->val.getId().equals(id)).toList().get(0);
     }
 
-    public void updateLevel(Long id, Users users) {
+    public void updateLevel(Long id, Level level) {
         Level oldLevel = findById(id);
-        oldLevel.setName(users.getName());
+        oldLevel.setName(level.getName());
         repository.save(oldLevel);
     }
 }

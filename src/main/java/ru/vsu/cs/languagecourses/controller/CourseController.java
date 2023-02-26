@@ -19,7 +19,7 @@ public class CourseController {
     }
 
     @GetMapping("/courses")
-    public List<CourseDto> getUsers() {
+    public List<CourseDto> getCourses() {
         return service.getAllCourses();
     }
 
