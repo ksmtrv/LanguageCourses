@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "course_listeners")
-public class Course_listener {
+public class CourseListener {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

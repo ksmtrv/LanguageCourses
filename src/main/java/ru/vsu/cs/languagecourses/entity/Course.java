@@ -36,5 +36,5 @@ public class Course {
     @NotNull
     @OneToMany
     @JoinColumn(name = "id")
-    private List<Course_listener> course_listeners;
+    private List<CourseListener> course_listeners;
 }

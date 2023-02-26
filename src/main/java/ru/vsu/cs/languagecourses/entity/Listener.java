@@ -28,5 +28,5 @@ public class Listener {
     @NotNull
     @OneToMany
     @JoinColumn(name = "id")
-    private List<Course_listener> course_listener;
+    private List<CourseListener> course_listener;
 }
