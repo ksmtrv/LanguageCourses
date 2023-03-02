@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "course_listeners")
+@Table(name = "courseListener")
 public class CourseListener {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,6 @@ public class CourseListener {
     private Course course;
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "listeners_id")
+    @JoinColumn(name = "listener_id")
     private Listener listener;
 }

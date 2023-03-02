@@ -39,8 +39,8 @@ public class CourseService {
 
     public void updateCourse(Long id, Course course) {
         Course oldCourse = findById(id);
-        //oldCourse.setName(course.getName());
-        oldCourse.setPrices(course.getPrices());
+        oldCourse.setTitle(course.getTitle());
+        oldCourse.setPrice(course.getPrice());
         repository.save(oldCourse);
     }
 }

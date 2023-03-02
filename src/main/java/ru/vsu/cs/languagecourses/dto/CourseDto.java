@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class CourseDto {
+    private String title;
     private Integer prices;
 }

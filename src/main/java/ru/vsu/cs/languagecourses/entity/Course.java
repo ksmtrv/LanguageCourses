@@ -20,7 +20,9 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    private Integer prices;
+    private String title;
+    @NotNull
+    private Integer price;
     @NotNull
     @ManyToOne
     @JoinColumn(name = "language_id")
@@ -36,5 +38,5 @@ public class Course {
     @NotNull
     @OneToMany
     @JoinColumn(name = "id")
-    private List<CourseListener> course_listeners;
+    private List<CourseListener> courseListener;
 }
