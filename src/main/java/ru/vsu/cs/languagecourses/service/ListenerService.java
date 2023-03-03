@@ -7,6 +7,7 @@ import ru.vsu.cs.languagecourses.mapper.ListenerMapper;
 import ru.vsu.cs.languagecourses.repository.ListenerRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,21 +29,26 @@ public class ListenerService {
         repository.save(listener);
     }
 
-    private Listener findById(Long id) {
-        return repository.findAll().stream()
-                .filter(val->val.getId().equals(id)).toList().get(0);
+    private Optional<Listener> findById(Long id) {
+        return repository.findById(id);
     }
 
     public void deleteListener(Long id) {
-        repository.delete(findById(id));
+        var listener = findById(id);
+        if (listener.isPresent()) {
+            repository.delete(listener.get());
+        }
+
     }
 
     public void updateListener(Long id, Listener listener) {
-        Listener oldListener = findById(id);
-        oldListener.setName(listener.getName());
-        oldListener.setSurname(listener.getSurname());
-        oldListener.setEmail(listener.getEmail());
-        repository.save(oldListener);
+        var optOldListener = findById(id);
+        if (optOldListener.isPresent()) {
+            Listener oldListener = optOldListener.get();
+            oldListener.setName(listener.getName());
+            oldListener.setSurname(listener.getSurname());
+            oldListener.setEmail(listener.getEmail());
+            repository.save(oldListener);
+        }
     }
-
 }

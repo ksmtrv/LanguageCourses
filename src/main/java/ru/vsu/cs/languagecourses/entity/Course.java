@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -36,7 +36,10 @@ public class Course {
     @JoinColumn(name = "intensity_id")
     private Intensity intensity;
     @NotNull
-    @OneToMany
-    @JoinColumn(name = "id")
-    private List<CourseListener> courseListener;
+    @ManyToMany
+    @JoinTable(
+            name = "course_listener",
+            joinColumns = @JoinColumn(name = "course_id"),
+            inverseJoinColumns = @JoinColumn(name = "listener_id"))
+    private Set<Listener> listeners;
 }

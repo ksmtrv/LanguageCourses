@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,7 +26,6 @@ public class Listener {
     @NotNull
     private String email;
     @NotNull
-    @OneToMany
-    @JoinColumn(name = "id")
-    private List<CourseListener> courseListener;
+    @ManyToMany(mappedBy = "listeners", cascade={CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<Course> courses;
 }
