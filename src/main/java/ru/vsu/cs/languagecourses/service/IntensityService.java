@@ -24,21 +24,17 @@ public class IntensityService {
                 .map(mapper::toDto).collect(Collectors.toList());
     }
 
-    public void saveNewIntensity(Intensity intensity) {
-        repository.save(intensity);
-    }
-
-    private Intensity findById(Long id) {
-        return repository.findAll().stream()
-                .filter(val->val.getId().equals(id)).toList().get(0);
+    public void saveNewIntensity(IntensityDto intensityDto) {
+        repository.save(mapper.toEntity(intensityDto));
     }
 
     public void deleteIntensity(Long id) {
-        repository.delete(findById(id));
+        repository.delete(repository.findById(id).
+                orElseThrow(() -> new NoClassDefFoundError("Запись не найдена.")));
     }
 
     public void updateIntensity(Long id, Intensity intensity) {
-        Intensity oldIntensity = findById(id);
+        Intensity oldIntensity = repository.findById(id).orElseThrow();
         oldIntensity.setName(intensity.getName());
         repository.save(oldIntensity);
     }

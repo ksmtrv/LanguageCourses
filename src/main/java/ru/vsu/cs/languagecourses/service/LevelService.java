@@ -24,22 +24,18 @@ public class LevelService {
                 .map(mapper::toDto).collect(Collectors.toList());
     }
 
-    public void saveNewLevel(Level level) {
-        repository.save(level);
-    }
-
-    private Level findById(Long id) {
-        return repository.findAll().stream()
-                .filter(val->val.getId().equals(id)).toList().get(0);
+    public void saveNewLevel(LevelDto levelDto) {
+        repository.save(mapper.toEntity(levelDto));
     }
 
     public void deleteLevel(Long id) {
-        repository.delete(findById(id));
+        repository.delete(repository.findById(id).
+                orElseThrow(() -> new NoClassDefFoundError("Запись не найдена.")));
     }
 
-    public void updateLevel(Long id, Level level) {
-        Level oldLevel = findById(id);
-        oldLevel.setName(level.getName());
+    public void updateLevel(Long id, LevelDto levelDto) {
+        Level oldLevel = repository.findById(id).orElseThrow();
+        oldLevel.setName(levelDto.getName());
         repository.save(oldLevel);
     }
 }

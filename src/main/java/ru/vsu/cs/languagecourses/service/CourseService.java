@@ -1,46 +1,67 @@
 package ru.vsu.cs.languagecourses.service;
 
 import org.springframework.stereotype.Service;
-import ru.vsu.cs.languagecourses.dto.CourseDto;
+import ru.vsu.cs.languagecourses.dto.course.CourseDto;
+import ru.vsu.cs.languagecourses.dto.course.ICourseDto;
 import ru.vsu.cs.languagecourses.entity.Course;
+import ru.vsu.cs.languagecourses.entity.Listener;
+import ru.vsu.cs.languagecourses.mapper.CourseFullMapper;
 import ru.vsu.cs.languagecourses.mapper.CourseMapper;
 import ru.vsu.cs.languagecourses.repository.CourseRepository;
+import ru.vsu.cs.languagecourses.repository.ListenerRepository;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class CourseService {
-    private final CourseRepository repository;
-    private final CourseMapper mapper;
+    private final CourseRepository courseRepository;
+    private final CourseMapper courseMapper;
+    private final ListenerRepository listenerRepository;
+    private final CourseFullMapper courseFullMapper;
 
-    public CourseService(CourseRepository repository, CourseMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
+    public CourseService(CourseRepository courseRepository, CourseMapper courseMapper,
+                         ListenerRepository listenerRepository, CourseFullMapper courseFullMapper) {
+        this.courseRepository = courseRepository;
+        this.courseMapper = courseMapper;
+        this.listenerRepository = listenerRepository;
+        this.courseFullMapper = courseFullMapper;
     }
 
-    public List<CourseDto> getAllCourses() {
-        return repository.findAll().stream()
-                .map(mapper::toDto).collect(Collectors.toList());
+    public List<ICourseDto> getAllCourses(Boolean full) {
+        if (!full) {
+            return getAllCourses();
+        }
+        return courseRepository.findAll().stream()
+                .map(courseFullMapper::toDto).collect(Collectors.toList());
     }
 
-    public void saveNewCourse(Course course) {
-        repository.save(course);
+    public List<ICourseDto> getAllCourses() {
+        return courseRepository.findAll().stream()
+                .map(courseMapper::toDto).collect(Collectors.toList());
     }
 
-    private Course findById(Long id) {
-        return repository.findAll().stream()
-                .filter(val->val.getId().equals(id)).toList().get(0);
+
+    public void saveNewCourse(CourseDto courseDto) {
+        courseRepository.save(courseMapper.toEntity(courseDto));
     }
 
     public void deleteCourse(Long id) {
-        repository.delete(findById(id));
+        courseRepository.delete(courseRepository.findById(id).
+                orElseThrow(() -> new NoClassDefFoundError("Запись не найдена.")));
     }
 
-    public void updateCourse(Long id, Course course) {
-        Course oldCourse = findById(id);
-        oldCourse.setTitle(course.getTitle());
-        oldCourse.setPrice(course.getPrice());
-        repository.save(oldCourse);
+    public void updateCourse(Long id, CourseDto courseDto) {
+        Course oldCourse = courseRepository.findById(id).orElseThrow();
+        oldCourse.setTitle(courseDto.getTitle());
+        oldCourse.setPrice(courseDto.getPrice());
+        courseRepository.save(oldCourse);
+    }
+
+    public void addListenerToCourse(Long courseId, Long listenerId) {
+        Listener listener = listenerRepository.findById(listenerId).orElseThrow();
+        Course course = courseRepository.findById(courseId).orElseThrow();
+        course.getListeners().add(listener);
+        courseRepository.save(course);
     }
 }

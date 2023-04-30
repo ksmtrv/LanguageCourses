@@ -2,7 +2,6 @@ package ru.vsu.cs.languagecourses.controller;
 
 import org.springframework.web.bind.annotation.*;
 import ru.vsu.cs.languagecourses.dto.LevelDto;
-import ru.vsu.cs.languagecourses.entity.Level;
 import ru.vsu.cs.languagecourses.service.LevelService;
 
 import java.util.List;
@@ -20,17 +19,17 @@ public class LevelController {
         return service.getAllLevels();
     }
 
-    @PostMapping("/level/new")
-    public void addNewLevel(@RequestBody Level level) {
-        service.saveNewLevel(level);
+    @PostMapping("/levels")
+    public void addNewLevel(@RequestBody LevelDto levelDto) {
+        service.saveNewLevel(levelDto);
     }
 
-    @PutMapping("/level/{id}")
-    public void updateLevel(@PathVariable Long id, @RequestBody Level level) {
-        service.updateLevel(id, level);
+    @PutMapping("/levels/{id}")
+    public void updateLevel(@PathVariable Long id, @RequestBody LevelDto levelDto) {
+        service.updateLevel(id, levelDto);
     }
 
-    @DeleteMapping("/level/delete/{id}")
+    @DeleteMapping("/levels/{id}")
     public void deleteLevel(@PathVariable Long id) {
         service.deleteLevel(id);
     }

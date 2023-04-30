@@ -1,7 +1,7 @@
 package ru.vsu.cs.languagecourses.mapper;
 
 import org.mapstruct.Mapper;
-import ru.vsu.cs.languagecourses.dto.ListenerDto;
+import ru.vsu.cs.languagecourses.dto.listener.ListenerDto;
 import ru.vsu.cs.languagecourses.entity.Listener;
 
 @Mapper(componentModel = "spring")

@@ -15,22 +15,22 @@ public class IntensityController {
         this.service = service;
     }
 
-    @GetMapping("/intensity")
+    @GetMapping("/intensities")
     public List<IntensityDto> getIntensity() {
         return service.getAllIntensity();
     }
 
-    @PostMapping("/intensity/new")
-    public void addNewIntensity(@RequestBody Intensity intensity) {
-        service.saveNewIntensity(intensity);
+    @PostMapping("/intensities")
+    public void addNewIntensity(@RequestBody IntensityDto intensityDto) {
+        service.saveNewIntensity(intensityDto);
     }
 
-    @PutMapping("/intensity/{id}")
+    @PutMapping("/intensities/{id}")
     public void updateIntensity(@PathVariable Long id, @RequestBody Intensity intensity) {
         service.updateIntensity(id, intensity);
     }
 
-    @DeleteMapping("/intensity/delete/{id}")
+    @DeleteMapping("/intensities/{id}")
     public void deleteIntensity(@PathVariable Long id) {
         service.deleteIntensity(id);
     }

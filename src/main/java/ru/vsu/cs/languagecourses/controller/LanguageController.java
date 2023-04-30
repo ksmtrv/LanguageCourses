@@ -20,17 +20,17 @@ public class LanguageController {
         return service.getAllLanguages();
     }
 
-    @PostMapping("/language/new")
-    public void addNewLanguage(@RequestBody Language language) {
-        service.saveNewLanguage(language);
+    @PostMapping("/languages")
+    public void addNewLanguage(@RequestBody LanguageDto languageDto) {
+        service.saveNewLanguage(languageDto);
     }
 
-    @PutMapping("/language/{id}")
+    @PutMapping("/languages/{id}")
     public void updateLanguage(@PathVariable Long id, @RequestBody Language language) {
         service.updateLanguage(id, language);
     }
 
-    @DeleteMapping("/language/delete/{id}")
+    @DeleteMapping("/languages/{id}")
     public void deleteLanguage(@PathVariable Long id) {
         service.deleteLanguage(id);
     }

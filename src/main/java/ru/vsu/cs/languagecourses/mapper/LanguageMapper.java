@@ -8,5 +8,4 @@ import ru.vsu.cs.languagecourses.entity.Language;
 public interface LanguageMapper {
     LanguageDto toDto(Language language);
     Language toEntity(LanguageDto dto);
-
 }

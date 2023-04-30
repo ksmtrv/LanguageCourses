@@ -24,21 +24,17 @@ public class LanguageService {
                 .map(mapper::toDto).collect(Collectors.toList());
     }
 
-    public void saveNewLanguage(Language language) {
-        repository.save(language);
-    }
-
-    private Language findById(Long id) {
-        return repository.findAll().stream()
-                .filter(val->val.getId().equals(id)).toList().get(0);
+    public void saveNewLanguage(LanguageDto languageDto) {
+        repository.save(mapper.toEntity(languageDto));
     }
 
     public void deleteLanguage(Long id) {
-        repository.delete(findById(id));
+        repository.delete(repository.findById(id).
+                orElseThrow(() -> new NoClassDefFoundError("Запись не найдена.")));
     }
 
     public void updateLanguage(Long id, Language language) {
-        Language oldLanguage = findById(id);
+        Language oldLanguage = repository.findById(id).orElseThrow();
         oldLanguage.setName(language.getName());
         repository.save(oldLanguage);
     }

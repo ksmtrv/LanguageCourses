@@ -1,10 +1,8 @@
 package ru.vsu.cs.languagecourses.controller;
 
 import org.springframework.web.bind.annotation.*;
-import ru.vsu.cs.languagecourses.dto.LanguageDto;
-import ru.vsu.cs.languagecourses.dto.ListenerDto;
-import ru.vsu.cs.languagecourses.entity.Language;
-import ru.vsu.cs.languagecourses.entity.Listener;
+import ru.vsu.cs.languagecourses.dto.listener.IListenerDto;
+import ru.vsu.cs.languagecourses.dto.listener.ListenerDto;
 import ru.vsu.cs.languagecourses.service.ListenerService;
 
 import java.util.List;
@@ -18,22 +16,31 @@ public class ListenerController {
     }
 
     @GetMapping("/listeners")
-    public List<ListenerDto> getListeners() {
-        return service.getAllListeners();
+    public List<IListenerDto> getListeners(@RequestParam(required = false) Boolean full) {
+        if (full == null || !full) {
+            return service.getAllListeners();
+        }
+        return service.getAllListeners(true);
+
     }
 
-    @PostMapping("/listener/new")
-    public void addNewListener(@RequestBody Listener listener) {
-        service.saveNewListener(listener);
+    @PostMapping("/listeners")
+    public void addNewListener(@RequestBody ListenerDto listenerDto) {
+        service.saveNewListener(listenerDto);
     }
 
-    @PutMapping("/listener/{id}")
-    public void updateListener(@PathVariable Long id, @RequestBody Listener listener) {
-        service.updateListener(id, listener);
+    @PutMapping("/listeners/{id}")
+    public void updateListener(@PathVariable Long id, @RequestBody ListenerDto listenerDto) {
+        service.updateListener(id, listenerDto);
     }
 
-    @DeleteMapping("/listener/delete/{id}")
+    @DeleteMapping("/listeners/{id}")
     public void deleteListener(@PathVariable Long id) {
         service.deleteListener(id);
+    }
+
+    @PostMapping("/listeners/addCourse")
+    public void addCourse(@RequestParam Long lId, @RequestParam Long cId) {
+        service.addCourseToListener(lId, cId);
     }
 }

@@ -8,5 +8,4 @@ import ru.vsu.cs.languagecourses.entity.Intensity;
 public interface IntensityMapper {
     IntensityDto toDto(Intensity intensity);
     Intensity toEntity(IntensityDto dto);
-
 }
